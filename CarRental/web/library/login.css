@@ -1,0 +1,111 @@
+* {
+    box-sizing: border-box;
+}
+h1{
+    text-align: center;
+    color: darkgreen;
+}
+.small-form{
+    width: 50%;
+    border-radius: 5%;
+    /*float: left;*/
+    margin-left: 25%;
+
+}
+.form-login{
+    margin-left: 10%;
+}
+.form-control{
+    width: 80%;
+}
+.card{
+    width: 22em;
+    float: left;
+    margin-left: 1em;
+    margin-top: 3em;
+}
+.home{
+    border-left: 1px solid red;
+    height: 500px;
+    /*float: left;*/
+}
+.dropdown-item:hover{
+    background-color: activecaption;
+}
+
+.sidenav {
+    width: 22em;
+    float: left;
+    position: sticky;
+    z-index: 1;
+    top: 80px;
+    left: 10px;
+    background: #eee;
+    overflow-x: hidden;
+    padding: 8px 0;
+
+}
+.main { 
+    margin-left: 22em;  
+    padding: 0px 50px;
+}
+.main::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+a:link {
+    text-decoration: none;
+}
+
+a:visited {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+a:active {
+    text-decoration: none;
+}
+
+.item-shopping-cart{
+    /*border: 2px solid lavender;*/
+    margin: 2em 0;
+    background-color: lavender;
+}
+.image-custome{
+    margin: 1em 0;
+    width: 100%;
+}
+
+#RangeOfMoney{
+    display: none;
+}
+.checkout-custom{
+    height: 20em;
+    margin-left: 3em;
+    position: sticky;
+    z-index: 1;
+    top: 80px;
+    background: #eee;
+    overflow-x: hidden;
+    padding: 8px 0;
+}
+
+.content-checkout{
+    width: 70%;
+    margin-left: 15%;
+    margin-top:3em;
+}
+.row{
+    background-color: bisque;
+    padding: 2em;
+}
+.hiddenBlock{
+    display: none;
+}
+#btnLogin{
+    cursor: not-allowed;
+}

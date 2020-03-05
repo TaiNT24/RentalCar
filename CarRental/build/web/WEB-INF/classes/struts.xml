@@ -1,0 +1,22 @@
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <!-- Configuration for the default package. -->
+    <package name="default" extends="struts-default" namespace="/">
+        
+        <action name="" class="taint.action.StartupAction" >
+            <result name="success" type="redirect" >Home.jsp</result>
+        </action>
+        <action name="loginPage">
+            <result type="redirect">Login.jsp</result>
+        </action>
+        <action name="registerNewAccount" >
+            <result type="redirect">RegisterNewAccount.jsp</result>
+        </action>
+        
+        
+                        
+    </package>
+</struts>
