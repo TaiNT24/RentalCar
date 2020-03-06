@@ -14,9 +14,18 @@
     </head>
     <body>
         <div class="container">
+
+
             <jsp:include page="SearchForm.jsp" />
 
             <div class="main">
+                <s:if test="%{#session.USER_EMAIL != null}">
+                    <p class="bg-info text-white text-center" style="padding: 0.5em">
+                        This is the list car we provide.
+                        You MUST search to have a suitable car !!
+                    </p>
+                </s:if>
+                    
                 <s:iterator value="%{#application.LISTCAR}">
                     <div class="row">
                         <div class="col-sm-4">
@@ -35,20 +44,23 @@
                             Quantity: <s:property value="quantity" />
                             <br><br>
 
-                            <form action="addtocart" >
-                                <s:hidden name="idCar" value="%{idCar}" />
+                            <!--                            <form action="addtocart" >
+                            <%--<s:hidden name="idCar" value="%{idCar}" />--%>
 
-                                <input class="btn btn-primary" type="submit"
-                                       value="Add to cart" />
-                            </form>
+                            <input class="btn btn-primary" type="submit"
+                                   value="Add to cart" />
+                        </form>-->
 
                         </div>
 
                     </div>
                     <br>
                 </s:iterator>
-
             </div>
+
+            <h2 class="text-secondary text-center">
+                -----Rental Car-----
+            </h2>
 
         </div>
     </body>

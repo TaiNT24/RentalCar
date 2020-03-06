@@ -39,16 +39,16 @@ public class AddtocartAction {
         String url = FAIL;
 
         Map session = ActionContext.getContext().getSession();
-        String username = (String) session.get("USERNAME");
-        if (username != null) {
+        String email = (String) session.get("USER_EMAIL");
+        if (email != null) {
             CartDAO cartDAO = new CartDAO();
             RentCarDAO rentCarDAO = new RentCarDAO();
             CarDAO carDAO = new CarDAO();
 
-            CartDTO cart = cartDAO.getCartOfUsername(username);
+            CartDTO cart = cartDAO.getCurrentCartOfUser(email);
             if (cart == null) {
-                cartDAO.createCartForUsername(username);
-                cart = cartDAO.getCartOfUsername(username);
+                cartDAO.createCartForUsername(email);
+                cart = cartDAO.getCurrentCartOfUser(email);
             }
             int price = carDAO.getPrice(idCar);
 

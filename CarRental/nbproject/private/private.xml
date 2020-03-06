@@ -3,12 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group name="Current">
-            <file>file:/F:/FPTU/TERM5/Lab%20Web%20Pro/Lab3/CarRental/src/java/taint/model/account/AccountDAO.java</file>
-            <file>file:/F:/FPTU/TERM5/Lab%20Web%20Pro/Lab3/CarRental/web/Login.jsp</file>
-            <file>file:/F:/FPTU/TERM5/Lab%20Web%20Pro/Lab3/CarRental/src/java/taint/model/account/AccountDTO.java</file>
+            <file>file:/F:/FPTU/TERM5/Lab%20Web%20Pro/Lab3/CarRental/web/SearchForm.jsp</file>
             <file>file:/F:/FPTU/TERM5/Lab%20Web%20Pro/Lab3/CarRental/src/java/struts.xml</file>
-            <file>file:/F:/FPTU/TERM5/Lab%20Web%20Pro/Lab3/CarRental/web/RegisterNewAccount.jsp</file>
-            <file>file:/F:/FPTU/TERM5/Lab%20Web%20Pro/Lab3/CarRental/src/java/taint/action/RegisteraccountAction.java</file>
+            <file>file:/F:/FPTU/TERM5/Lab%20Web%20Pro/Lab3/CarRental/web/DateInput.html</file>
+            <file>file:/F:/FPTU/TERM5/Lab%20Web%20Pro/Lab3/CarRental/src/java/taint/action/SearchAction.java</file>
+            <file>file:/F:/FPTU/TERM5/Lab%20Web%20Pro/Lab3/CarRental/src/java/taint/model/car/CarDAO.java</file>
         </group>
     </open-files>
 </project-private>

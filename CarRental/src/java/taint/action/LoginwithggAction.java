@@ -30,19 +30,20 @@ public class LoginwithggAction {
         AccountDAO dao = new AccountDAO();
 
         int role = dao.checkLogin(txtEmail, txtPassword);
+        String username = dao.getUserName(txtEmail);
 
-        if (role == -1) {
+        if (role == -1 && username == null) {
             AccountDTO dto = new AccountDTO(txtEmail, txtPassword, name);
             dao.insertNewAccount(dto);
         }
+
+        username = dao.getUserName(txtEmail);
         
-        String username = dao.getUserName(txtEmail);
         Map session = ActionContext.getContext().getSession();
 
         session.put("ROLE", 0);
         session.put("USER_EMAIL", txtEmail);
         session.put("USER_NAME", username);
-
 
         return USER;
     }

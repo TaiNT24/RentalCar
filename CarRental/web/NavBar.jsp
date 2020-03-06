@@ -51,9 +51,20 @@ and open the template in the editor.
                     <a class="navbar-brand" href="''">Home</a>
                 </li>
             </ul>
+            <ul class="navbar-nav" style="margin-left: 20em">
+                <s:if test="%{#session.USER_EMAIL == null}">
+
+                    <li class="nav-item" style="width: 14em">
+                        <a class="text-white text-center">
+                            You have to login to rent a car
+                        </a>
+                    </li>
+
+                </s:if>
+            </ul>
 
             <!--.-->
-            <ul class="navbar-nav" style="margin-left: 45%">
+            <ul class="navbar-nav" >
 
                 <!--Not Login yet-->
                 <s:if test="%{#session.USER_EMAIL == null}">
@@ -62,10 +73,12 @@ and open the template in the editor.
                         <a href="loginPage" class="text-white">Login</a> 
                     </li>
                 </s:if>
+            </ul>
 
-
+            <ul class="navbar-nav" style="margin-left: 25%">
                 <!--User-->
                 <s:if test="%{#session.ROLE == 0}">
+
                     <li class="nav-item text-white " 
                         style="text-align: center; width: 15em;"
                         >
@@ -94,18 +107,15 @@ and open the template in the editor.
                         </div>                   
                     </li>
 
-                    <s:url var="yourCart" value="ShoppingCart">
-                        <s:param name="userID" value="%{#session.USER_EMAIL}" />
-                    </s:url>
+
                     <li class="nav-item" style="margin-left: 1em">
-                        <a href="${yourCart}" class="btn btn-info">
+                        <a href="gotocart" class="btn btn-info">
                             Shopping Cart
                         </a>
                     </li>
+                </ul>
+            </s:if>
 
-                </s:if>
-
-            </ul>
         </nav>
         <br>
 

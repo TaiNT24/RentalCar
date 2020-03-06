@@ -19,7 +19,8 @@ import taint.utils.DBUtils;
  */
 public class CartDAO implements Serializable{
     
-    public CartDTO getCartOfUsername(String username) throws NamingException, SQLException{
+    public CartDTO getCurrentCartOfUser(String email) 
+            throws NamingException, SQLException{
         Connection con = null;
         PreparedStatement stm = null;
         ResultSet rs = null;
@@ -34,11 +35,11 @@ public class CartDAO implements Serializable{
             if (con != null) {
                 stm = con.prepareStatement(sqlQuery);
 
-                stm.setString(1, username);
+                stm.setString(1, email);
                 
                 rs = stm.executeQuery();
                 if (rs.next()) {
-                    cart = new CartDTO(rs.getInt("IDCart"), username);
+                    cart = new CartDTO(rs.getInt("IDCart"), email);
                 }
             }
         } finally {
@@ -55,7 +56,7 @@ public class CartDAO implements Serializable{
         return cart;
     }
     
-    public boolean createCartForUsername(String username) 
+    public boolean createCartForUsername(String email) 
             throws NamingException, SQLException{
         Connection con = null;
         PreparedStatement stm = null;
@@ -66,7 +67,7 @@ public class CartDAO implements Serializable{
             if (con != null) {
                 stm = con.prepareStatement(sqlQuery);
 
-                stm.setString(1, username);
+                stm.setString(1, email);
                 
                 int row = stm.executeUpdate();
                 if (row>0) {

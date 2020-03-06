@@ -10,10 +10,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
         <title>Search</title>
     </head>
     <body>
-        <div class="container">
             <jsp:include page="NavBar.jsp" />
 
             <div class="sidenav">
@@ -25,12 +25,6 @@
                                placeholder="Product's name"
                                />
 
-                        <button type="submit" class="btn btn-success" 
-                                style="margin:1em 4em;float: right">
-                            Search
-                        </button>
-
-                        <br>
                         <br>
                         <!--.-->
                         <button type="button" class="btn btn-primary"
@@ -70,67 +64,55 @@
                         </div>
                         <br>
                         <!--search by amount of car-->
-                        <div class="form-check">
-                            <label class="form-check-label" for="selAmount">
-                                <input type="radio" class="form-check-input" 
-                                       id="selAmount" onclick="ShowBlock()"
-                                       name="moreFilter" value="amount"
-                                       <s:if test="%{moreFilter == 'amount'}">
-                                           checked
-                                       </s:if>
-                                       >Amount
-                            </label>
 
-                            <div class="hiddenBlock" id="BlockAmount">
-                                <input type="number" class="form-control"
-                                       style="width: 5em" min="1"
-                                       name="amount" value="${amount}" />
-                            </div>
-
+                        <div class="form-inline">
+                            Amount:
+                            <input type="number" class="form-control" required
+                                   style="width: 12em; margin-left: 2em" min="1"
+                                   name="amount" value="${amount}" />
                         </div>
-
-
+                        <br>
                         <!--.-->
+                        <jsp:include page="DateInput.html" />
+                        
+
+                        <!--/-->
+                        <br><br>
+                        <button type="submit" class="btn btn-success form-control" 
+                                >
+                            Search
+                        </button>
+
+                        <br>
+                        <br>
                     </form>
 
                     <hr style="border: 1px solid darkcyan"/>
                 </div>
             </div>
-        </div>
 
         <script>
+            var datepicker1 = document.getElementById("datepicker1");
+            var datepicker2 = document.getElementById("datepicker2");
+            datepicker1.value = %{dateRent};
+            datepicker1.value = %{dateReturn};
+            
             var selCate = document.getElementById("selCate");
-            var selAmount = document.getElementById("selAmount");
             var BlockCate = document.getElementById("BlockCate");
-            var BlockAmount = document.getElementById("BlockAmount");
 
             if (selCate.checked) {
                 BlockCate.style.display = "block";
-            }
-            if (selAmount.checked) {
-                BlockAmount.style.display = "block";
             }
 
             function ShowBlock() {
                 if (selCate.checked) {
                     BlockCate.style.display = "block";
-
-                    BlockAmount.style.display = "none";
-                }
-                if (selAmount.checked) {
-                    BlockAmount.style.display = "block";
-
-                    BlockCate.style.display = "none";
                 }
             }
 
             function DeleteFilter() {
                 selCate.checked = false;
-                selAmount.checked = false;
-
                 BlockCate.style.display = "none";
-                BlockAmount.style.display = "none";
-                
             }
 
         </script>

@@ -26,6 +26,9 @@ public class StartupAction {
     
     public String execute() throws Exception {
         Map application = ActionContext.getContext().getApplication();
+        Map session = ActionContext.getContext().getSession();
+        session.remove("CODE_VERIFY");
+        session.remove("Account_DTO");
         
         List<CarDTO> listCars = (List<CarDTO>) application.get("LISTCAR");
         

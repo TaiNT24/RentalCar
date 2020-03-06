@@ -20,7 +20,7 @@ import taint.model.car.CarDTO;
 @Results({
     @Result(name = "success", location = "ResultSearch.jsp")
     ,
-    @Result(name = "fail",type = "redirect", location = "Home.jsp")
+    @Result(name = "fail", type = "redirect", location = "Home.jsp")
 
 })
 public class SearchAction {
@@ -31,6 +31,8 @@ public class SearchAction {
     private String moreFilter;
     private String categoryApply;
     private String amount;
+    private String dateRent;
+    private String dateReturn;
 
     private final String SUCCESS = "success";
     private final String FAIL = "fail";
@@ -41,28 +43,21 @@ public class SearchAction {
     public String execute() throws Exception {
         String url = FAIL;
 
-        if (!searchVal.equals("") || moreFilter != null) {
-            CarDAO dao = new CarDAO();
+        CarDAO dao = new CarDAO();
 
-            if (moreFilter == null) {
-                listCars = dao.searchByName(searchVal);
-                
-            } else {
-                if (moreFilter.equals("category")) {
-                    listCars = dao.searchByCategory(searchVal, categoryApply);
-                    System.out.println(categoryApply);
-                } else if (moreFilter.equals("amount")) {
-                    int amountInt = Integer.parseInt(amount);
-                    listCars = dao.searchByAmount(searchVal, amountInt);
-                    
-                }
-            }
+        if (moreFilter == null) {
+            listCars = dao.searchByName(searchVal);
 
-            if(amount.equals("")){
-                amount = "1";
+        } else {
+            if (moreFilter.equals("category")) {
+                listCars = dao.searchByCategory(searchVal, categoryApply);
             }
-            url = SUCCESS;
         }
+
+        if (amount.equals("")) {
+            amount = "1";
+        }
+        url = SUCCESS;
 
         return url;
     }
@@ -105,6 +100,22 @@ public class SearchAction {
 
     public void setAmount(String amount) {
         this.amount = amount;
+    }
+
+    public String getDateRent() {
+        return dateRent;
+    }
+
+    public void setDateRent(String dateRent) {
+        this.dateRent = dateRent;
+    }
+
+    public String getDateReturn() {
+        return dateReturn;
+    }
+
+    public void setDateReturn(String dateReturn) {
+        this.dateReturn = dateReturn;
     }
 
 }
