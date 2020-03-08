@@ -5,7 +5,10 @@
  */
 package taint.action;
 
+import java.util.ArrayList;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.ResultPath;
 import org.apache.struts2.convention.annotation.Results;
@@ -30,7 +33,7 @@ public class SearchAction {
 
     private String moreFilter;
     private String categoryApply;
-    private String amount;
+    private int amount;
     private String dateRent;
     private String dateReturn;
 
@@ -42,21 +45,42 @@ public class SearchAction {
 
     public String execute() throws Exception {
         String url = FAIL;
+        
+        listCars = new ArrayList<>();
 
         CarDAO dao = new CarDAO();
+        List<CarDTO> tempListCars = new ArrayList<>();
 
-        if (moreFilter == null) {
-            listCars = dao.searchByName(searchVal);
+        if (moreFilter == null || moreFilter.equals("")) {
+            tempListCars = dao.searchByName(searchVal, dateRent, dateReturn);
 
         } else {
             if (moreFilter.equals("category")) {
-                listCars = dao.searchByCategory(searchVal, categoryApply);
+                tempListCars = dao.searchByCategory(searchVal, categoryApply, dateRent, dateReturn);
+
             }
         }
 
-        if (amount.equals("")) {
-            amount = "1";
+        if (!tempListCars.isEmpty()) {
+            for (CarDTO car : tempListCars) {
+                int availableQuan = car.getAvailableQuantity();
+                int fromAmout = amount - 5;
+                int toAmout = amount + 5;
+
+                if (availableQuan >= fromAmout && availableQuan <= toAmout) {
+                    listCars.add(car);
+                }
+            }
         }
+//
+        HttpServletRequest request = ServletActionContext.getRequest();
+        request.setAttribute("searchVal", searchVal);
+        request.setAttribute("moreFilter", moreFilter);
+        request.setAttribute("categoryApply", categoryApply);
+        request.setAttribute("amount", amount);
+        request.setAttribute("dateRent", dateRent);
+        request.setAttribute("dateReturn", dateReturn);
+        //
         url = SUCCESS;
 
         return url;
@@ -94,11 +118,11 @@ public class SearchAction {
         this.categoryApply = categoryApply;
     }
 
-    public String getAmount() {
+    public int getAmount() {
         return amount;
     }
 
-    public void setAmount(String amount) {
+    public void setAmount(int amount) {
         this.amount = amount;
     }
 

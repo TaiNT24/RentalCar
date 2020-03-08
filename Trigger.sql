@@ -57,4 +57,44 @@ BEGIN
 		END
 END
 GO
+------------------------------------------------------------
+------------------------------------------------------------
+--Trigger Update Total Price In RentCar
 
+IF OBJECT_ID('trg_UpdateTotalPriceInRentCar', 'TR') IS NOT NULL
+	DROP trigger trg_UpdateTotalPriceInRentCar
+GO
+CREATE TRIGGER trg_UpdateTotalPriceInRentCar ON dbo.RentCar AFTER UPDATE,INSERT AS
+BEGIN
+	-- Update total price in a RENT_CART
+	UPDATE dbo.RentCar 
+	SET TotalPrice = (SELECT Inserted.Quantity*Inserted.Price FROM Inserted)
+	WHERE IDRent = (SELECT Inserted.IDRent FROM Inserted)
+	
+	-- Update total price in a CART
+	UPDATE dbo.Cart 
+	SET TotalPrice = (SELECT SUM(TotalPrice) 
+						FROM dbo.RentCar 
+						WHERE IDCart = (SELECT Inserted.IDCart FROM Inserted))
+
+	WHERE Cart.IDCart = (SELECT Inserted.IDCart FROM Inserted)
+
+END
+GO
+------------------------------------------------------------
+------------------------------------------------------------
+--Trigger Update Total Price In Car when user delete a car in RentCar
+IF OBJECT_ID('trg_UpdateTotalPriceInCartWhenDeleteRentCar', 'TR') IS NOT NULL
+	DROP trigger trg_UpdateTotalPriceInCartWhenDeleteRentCar
+GO
+CREATE TRIGGER trg_UpdateTotalPriceInCartWhenDeleteRentCar ON dbo.RentCar AFTER DELETE AS
+BEGIN
+	
+	-- Update total price in a CART
+	UPDATE dbo.Cart 
+	SET TotalPrice = TotalPrice - (SELECT Deleted.TotalPrice FROM Deleted)
+
+	WHERE Cart.IDCart = (SELECT Deleted.IDCart FROM Deleted)
+
+END
+GO

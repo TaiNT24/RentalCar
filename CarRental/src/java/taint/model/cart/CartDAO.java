@@ -27,7 +27,7 @@ public class CartDAO implements Serializable{
 
         CartDTO cart = null;
 
-        String sqlQuery = "SELECT IDCart "
+        String sqlQuery = "SELECT IDCart, TotalPrice "
                 + "FROM Cart "
                 + "WHERE Email = ? and DateRent is NULL";
         try {
@@ -39,7 +39,7 @@ public class CartDAO implements Serializable{
                 
                 rs = stm.executeQuery();
                 if (rs.next()) {
-                    cart = new CartDTO(rs.getInt("IDCart"), email);
+                    cart = new CartDTO(rs.getInt("IDCart"), email, rs.getInt("TotalPrice"));
                 }
             }
         } finally {
@@ -84,5 +84,6 @@ public class CartDAO implements Serializable{
         }
         return false;
     }
+    
     
 }

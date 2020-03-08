@@ -20,9 +20,10 @@ public class CartDTO implements Serializable{
     public CartDTO() {
     }
 
-    public CartDTO(int idCart, String email) {
+    public CartDTO(int idCart, String email, int totalPrice) {
         this.idCart = idCart;
         this.email = email;
+        this.totalPrice = totalPrice;
     }
 
     public CartDTO(int idCart, String email, int totalPrice, String dateRent) {

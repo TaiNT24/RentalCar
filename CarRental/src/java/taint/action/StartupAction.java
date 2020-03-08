@@ -17,34 +17,31 @@ import taint.model.category.CategoryDTO;
  *
  * @author nguye
  */
-
 public class StartupAction {
+
     private final String SUCCESS = "success";
-    
+
     public StartupAction() {
     }
-    
+
     public String execute() throws Exception {
         Map application = ActionContext.getContext().getApplication();
         Map session = ActionContext.getContext().getSession();
         session.remove("CODE_VERIFY");
         session.remove("Account_DTO");
-        
-        List<CarDTO> listCars = (List<CarDTO>) application.get("LISTCAR");
-        
-        if(listCars == null){
-            CarDAO dao = new CarDAO();
-            CategoryDAO categoryDAO  = new CategoryDAO();
 
-            listCars = dao.getListCar();
-            
-            List<CategoryDTO> listCategory = categoryDAO.loadCategory();
-            
-            application.put("LISTCAR", listCars);
-            application.put("CATEGORY", listCategory);
-            
-        }
-        
+        List<CarDTO> listCars;
+
+        CarDAO dao = new CarDAO();
+        CategoryDAO categoryDAO = new CategoryDAO();
+
+        listCars = dao.getListCar();
+
+        List<CategoryDTO> listCategory = categoryDAO.loadCategory();
+
+        application.put("LISTCAR", listCars);
+        application.put("CATEGORY", listCategory);
+
         return SUCCESS;
     }
 

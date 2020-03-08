@@ -27,7 +27,7 @@
                 </s:if>
                     
                 <s:iterator value="%{#application.LISTCAR}">
-                    <div class="row">
+                    <div class="row row-car">
                         <div class="col-sm-4">
                             <h2><s:property value="carName"/></h2>
                             <br>
@@ -43,13 +43,6 @@
                             <br>
                             Quantity: <s:property value="quantity" />
                             <br><br>
-
-                            <!--                            <form action="addtocart" >
-                            <%--<s:hidden name="idCar" value="%{idCar}" />--%>
-
-                            <input class="btn btn-primary" type="submit"
-                                   value="Add to cart" />
-                        </form>-->
 
                         </div>
 

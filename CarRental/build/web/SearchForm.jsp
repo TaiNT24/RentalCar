@@ -24,7 +24,6 @@
                                value="${param.searchVal}"
                                placeholder="Product's name"
                                />
-
                         <br>
                         <!--.-->
                         <button type="button" class="btn btn-primary"
@@ -74,7 +73,8 @@
                         <br>
                         <!--.-->
                         <jsp:include page="DateInput.html" />
-                        
+                        <!--dateRent-->
+                        <!--dateReturn-->
 
                         <!--/-->
                         <br><br>
@@ -90,12 +90,12 @@
                     <hr style="border: 1px solid darkcyan"/>
                 </div>
             </div>
-
+                        
         <script>
             var datepicker1 = document.getElementById("datepicker1");
             var datepicker2 = document.getElementById("datepicker2");
-            datepicker1.value = %{dateRent};
-            datepicker1.value = %{dateReturn};
+            datepicker1.value = '${dateRent}';
+            datepicker2.value = '${dateReturn}';
             
             var selCate = document.getElementById("selCate");
             var BlockCate = document.getElementById("BlockCate");

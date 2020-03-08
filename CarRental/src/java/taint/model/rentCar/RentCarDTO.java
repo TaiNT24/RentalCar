@@ -15,11 +15,10 @@ public class RentCarDTO implements Serializable{
     private int idRent;
     private int idCar;
     private int idCart;
-    private String carName;
-    private String category;
     private int price;
     private int quantity;
     private int totalPrice;
+    private String status = "Insert";
 
     public RentCarDTO() {
     }
@@ -58,22 +57,6 @@ public class RentCarDTO implements Serializable{
         this.idCart = idCart;
     }
 
-    public String getCarName() {
-        return carName;
-    }
-
-    public void setCarName(String carName) {
-        this.carName = carName;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
     public int getPrice() {
         return price;
     }
@@ -96,6 +79,14 @@ public class RentCarDTO implements Serializable{
 
     public void setTotalPrice(int totalPrice) {
         this.totalPrice = totalPrice;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
     
     

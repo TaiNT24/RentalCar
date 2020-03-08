@@ -19,6 +19,7 @@ public class CarDTO implements Serializable{
     private String category;
     private int price;
     private int quantity;
+    private int availableQuantity;
 
     public CarDTO() {
     }
@@ -87,6 +88,14 @@ public class CarDTO implements Serializable{
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public int getAvailableQuantity() {
+        return availableQuantity;
+    }
+
+    public void setAvailableQuantity(int availableQuantity) {
+        this.availableQuantity = availableQuantity;
     }
     
     

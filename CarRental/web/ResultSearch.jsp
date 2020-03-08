@@ -23,7 +23,7 @@
                 </s:if>
                 
                 <s:iterator value="listCars">
-                    <div class="row">
+                    <div class="row row-car">
                         <div class="col-sm-4">
                             <h2><s:property value="carName"/></h2>
                             <br>
@@ -37,11 +37,17 @@
                         <div class="col-sm-4">
                             Price: <s:property value="price"/>$
                             <br>
-                            Quantity: <s:property value="quantity" />
+                            Quantity: <s:property value="availableQuantity" />
                             <br><br>
 
                             <form action="addtocart" >
                                 <s:hidden name="idCar" value="%{idCar}" />
+                                <s:hidden name="searchVal" value="%{#request.searchVal}" />
+                                <s:hidden name="moreFilter" value="%{#request.moreFilter}" />
+                                <s:hidden name="categoryApply" value="%{#request.categoryApply}" />
+                                <s:hidden name="amount" value="%{#request.amount}" />
+                                <s:hidden name="dateRent" value="%{#request.dateRent}" />
+                                <s:hidden name="dateReturn" value="%{#request.dateReturn}" />
 
                                 <input class="btn btn-primary" type="submit"
                                        value="Add to cart" />
