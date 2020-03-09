@@ -17,9 +17,11 @@
             <jsp:include page="NavBar.jsp"/>
 
             <h2>Your cart:</h2>
-
-            <s:if test="%{listRentCar.size()==0}">
-                <h2 class="text-secondary">Your cart is empty</h2>
+            <h3><s:property value="Paymented" /></h3>
+            
+            <s:if test="%{listRentCarDetails.size()==0}">
+                <h3 class="text-secondary">is empty</h3>
+                <a href="''" class="btn btn-primary">Continue shopping</a>
             </s:if>
             <s:else>
                 <div class="row">
@@ -57,8 +59,8 @@
                                                             name="btnAction" value="decreItem"
                                                             type="submit"
                                                             <s:if test="%{quantity==1}">disabled</s:if>>
-                                                        -
-                                                    </button>
+                                                                -
+                                                            </button>
 
                                                             <input type="tel" 
                                                                    name="quantityItem"
@@ -114,13 +116,16 @@
 
                                         </div>
                                     </div>
-                                    <input type="hidden" name="idRentChange" value="%{idRent}" />
-                                    <input type="hidden" name="oldQuantity" value="%{quantity}" />
-
+                                    <input type="hidden" name="idCartChange" value="${idCart}" />
+                                    <input type="hidden" name="idCarChange" value="${idCar}" />
+                                    <input type="hidden" name="oldQuantity" value="${quantity}" />
 
                                 </form>
                             </div>
-
+                            <s:url var="paymentByCast" value="checkquantity">
+                                <s:param name="idCartNeedCheck" 
+                                         value="idCart"/>
+                            </s:url>
                         </s:iterator>
 
                     </div>
@@ -134,33 +139,13 @@
                             </h2>
 
                             <div style="margin-top: 3em;">
-                                <!--                                <c:url var="paymentByCast" value="CheckQuantityInStock">
-                                                                    <c:param name="cartID" 
-                                                                             value="${sessionScope.CART_ID}"/>
-                                                                    <c:param name="paymentMethod" 
-                                                                             value="PaymentByCast"/>
-                                                                </c:url>-->
+
 
                                 <a href="${paymentByCast}" 
                                    class="btn btn-success btn-lg btn-block">
                                     Payment by CASH
                                 </a>
                                 <br>
-                                <!--                                <c:url var="paymentByPaypal" value="CheckQuantityInStock">
-                                                                    <c:param name="userID" 
-                                                                             value="${sessionScope.USER_ID}"/>
-                                                                    <c:param name="cartID" 
-                                                                             value="${sessionScope.CART_ID}"/>
-                                                                    <c:param name="totalPayment" 
-                                                                             value="${totalPayment}"/>
-                                                                    <c:param name="paymentMethod" 
-                                                                             value="PaymentByPaypal"/>
-                                                                </c:url>-->
-
-                                <a href="${paymentByPaypal}"
-                                   class="btn btn-success btn-lg btn-block">
-                                    Payment by PayPal
-                                </a>
 
                             </div>
                         </div>

@@ -85,5 +85,35 @@ public class CartDAO implements Serializable{
         return false;
     }
     
+    public boolean updateDateCart(int idCart, String dateRent) 
+            throws NamingException, SQLException{
+        Connection con = null;
+        PreparedStatement stm = null;
+
+        String sqlQuery = "UPDATE Cart SET DateRent = ? "
+                + "WHERE IDCart = ?";
+        try {
+            con = DBUtils.connectDB();
+            if (con != null) {
+                stm = con.prepareStatement(sqlQuery);
+
+                stm.setString(1, dateRent);
+                stm.setInt(2, idCart);
+                
+                int row = stm.executeUpdate();
+                if (row>0) {
+                    return true;
+                }
+            }
+        } finally {
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return false;
+    }
     
 }

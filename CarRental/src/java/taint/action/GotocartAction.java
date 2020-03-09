@@ -10,8 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
-import javax.servlet.http.HttpServletRequest;
-import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.ResultPath;
 import taint.model.car.CarDAO;
@@ -77,8 +75,8 @@ public class GotocartAction {
             StringTokenizer stk1 = new StringTokenizer(listDTRC.get(i).getDateRent()," ");
             StringTokenizer stk2 = new StringTokenizer(listDTRC.get(i).getDateReturn()," ");
             
-            String dateRent = Utils.formatStringDate(stk1.nextToken());
-            String dateReturn = Utils.formatStringDate(stk2.nextToken());
+            String dateRent = Utils.formatStringDate2(stk1.nextToken());
+            String dateReturn = Utils.formatStringDate2(stk2.nextToken());
             
             String carName = carDAO.getName(idCar);
             String category = carDAO.getCategory(idCar);

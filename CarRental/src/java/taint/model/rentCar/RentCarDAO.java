@@ -62,7 +62,7 @@ public class RentCarDAO implements Serializable {
         PreparedStatement stm = null;
         ResultSet rs = null;
 
-        List<RentCarDTO> listRentCar = new ArrayList<RentCarDTO>();
+        List<RentCarDTO> listRentCar = new ArrayList<>();
 
         String sqlQuery = "SELECT IDRent, IDCar, Price, Quantity, TotalPrice "
                 + "FROM RentCar "
@@ -236,4 +236,72 @@ public class RentCarDAO implements Serializable {
         return false;
     }
 
+    public boolean decreQuantity(int idCart, int idCar, int oldQuan)
+            throws NamingException, SQLException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+
+        String sqlQuery = "update RentCar set Quantity = ? "
+                + "where IDCart = ? and IDCar = ?";
+        try {
+            con = DBUtils.connectDB();
+            if (con != null) {
+                stm = con.prepareStatement(sqlQuery);
+
+                stm.setInt(1, oldQuan - 1);
+                stm.setInt(2, idCart);
+                stm.setInt(3, idCar);
+
+                int row = stm.executeUpdate();
+                if (row > 0) {
+                    return true;
+                }
+
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return false;
+    }
+    
+    public boolean setPaymentStatus(List<RentCarDTO> listRent) 
+            throws NamingException, SQLException{
+        Connection con = null;
+        PreparedStatement stm = null;
+
+        
+        String sqlQuery = "UPDATE RentCar SET Status = 'Paymented' "
+                + " WHERE IDRent = ?";
+        try{
+            con = DBUtils.connectDB();
+            if(con!=null){
+                stm = con.prepareStatement(sqlQuery);
+                for (RentCarDTO dto : listRent) {
+                    stm.setInt(1, dto.getIdRent());
+
+                    stm.executeUpdate();
+                }
+                
+            }
+        }finally{
+            if(stm!=null){
+                stm.close();
+            }
+            if(con!=null){
+                con.close();
+            }
+        }
+        return true;
+    }
+    
+    
 }

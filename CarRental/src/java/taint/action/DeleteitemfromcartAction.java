@@ -8,8 +8,6 @@ package taint.action;
 import com.opensymphony.xwork2.ActionContext;
 import java.util.List;
 import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
-import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.ResultPath;
 import taint.model.dateTimeRentCar.DateTimeRentCarDAO;

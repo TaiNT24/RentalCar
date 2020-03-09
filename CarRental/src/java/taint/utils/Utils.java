@@ -58,6 +58,16 @@ public class Utils {
 
         return dateFormat;
     }
+    
+    public static String formatStringDate2(String strDate) {
+        java.sql.Date date = java.sql.Date.valueOf(strDate);
+
+        SimpleDateFormat df = new SimpleDateFormat("MM/dd/YYYY");
+
+        String dateFormat = df.format(date);
+
+        return dateFormat;
+    }
 
     public static String encodePassword(String password)
             throws NoSuchAlgorithmException {

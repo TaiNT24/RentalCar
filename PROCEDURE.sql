@@ -6,8 +6,6 @@ CREATE PROCEDURE sp_GetAvailableQuantity @IDCar INT, @DateWantRent VARCHAR(50), 
 	AS
 	BEGIN
 		DECLARE @totalAvailableQuantity INT, @rowRenting int;
-
-		SELECT @totalAvailableQuantity = 0;
 		
 		SELECT @rowRenting = (SELECT COUNT(IDCar) FROM dbo.RentCar WHERE IDCar = @IDCar AND Status = 'Paymented')
 
@@ -23,8 +21,15 @@ CREATE PROCEDURE sp_GetAvailableQuantity @IDCar INT, @DateWantRent VARCHAR(50), 
 														AND IDCar = @IDCar
 														AND Status = 'Paymented'
 												)
-
+				IF(@totalAvailableQuantity IS NULL)
+					BEGIN
+						SELECT @totalAvailableQuantity = 0;
+					END
 			END
+			ELSE
+				BEGIN
+				    SELECT @totalAvailableQuantity = 0;
+				END
 		
 
 		SELECT @totalAvailableQuantity = @totalAvailableQuantity + (SELECT AvailableQuantity 
@@ -36,5 +41,5 @@ CREATE PROCEDURE sp_GetAvailableQuantity @IDCar INT, @DateWantRent VARCHAR(50), 
 	END
 GO
 ------
-EXEC sp_GetAvailableQuantity 1, '02/26/2019', '02/28/2019'
+EXEC sp_GetAvailableQuantity 2, '02/21/2019', '02/26/2019'
 
