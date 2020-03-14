@@ -24,6 +24,9 @@ public class PaymentcartAction {
 
     private int idCart;
     private String Paymented;
+    private int totalPriceAfterUseVoucher;
+    private String CodeDiscountValue;
+    
     private final String SUCCESS = "success";
 
     public PaymentcartAction() {
@@ -31,16 +34,19 @@ public class PaymentcartAction {
 
     public String execute() throws Exception {
         Date now = new Date();
-        String dateRent = Utils.formatDateToString(now);
+        String dateRent = Utils.formatDateToStringDateSQL(now);
         
         CartDAO cartDAO = new CartDAO();
         RentCarDAO rentCarDAO = new RentCarDAO();
         
-        boolean isPayment = cartDAO.updateDateCart(idCart, dateRent);
+        boolean isPayment = cartDAO.updateDateRentCart(idCart, dateRent);
+        if(totalPriceAfterUseVoucher!=0){
+            cartDAO.updateTotalPriceRentCartAfterUseVoucher(idCart, totalPriceAfterUseVoucher, CodeDiscountValue);
+        }
         if(isPayment){
             List<RentCarDTO> listRent = rentCarDAO.getListRentCarOfUser(idCart);
             
-            isPayment = rentCarDAO.setPaymentStatus(listRent);
+            isPayment = rentCarDAO.setStatusCarRent(listRent, "Paymented");
             if(isPayment){
                 Paymented = "Payment successful !!";
             }
@@ -63,6 +69,22 @@ public class PaymentcartAction {
 
     public void setPaymented(String Paymented) {
         this.Paymented = Paymented;
+    }
+
+    public int getTotalPriceAfterUseVoucher() {
+        return totalPriceAfterUseVoucher;
+    }
+
+    public void setTotalPriceAfterUseVoucher(int totalPriceAfterUseVoucher) {
+        this.totalPriceAfterUseVoucher = totalPriceAfterUseVoucher;
+    }
+
+    public String getCodeDiscountValue() {
+        return CodeDiscountValue;
+    }
+
+    public void setCodeDiscountValue(String CodeDiscountValue) {
+        this.CodeDiscountValue = CodeDiscountValue;
     }
 
     

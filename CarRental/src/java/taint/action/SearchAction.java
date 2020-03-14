@@ -71,6 +71,7 @@ public class SearchAction {
                     listCars.add(car);
                 }
             }
+            url = SUCCESS;
         }
 //
         HttpServletRequest request = ServletActionContext.getRequest();
@@ -81,7 +82,7 @@ public class SearchAction {
         request.setAttribute("dateRent", dateRent);
         request.setAttribute("dateReturn", dateReturn);
         //
-        url = SUCCESS;
+        
 
         return url;
     }

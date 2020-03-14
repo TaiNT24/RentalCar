@@ -18,6 +18,7 @@ public class RentCarDTO implements Serializable{
     private int price;
     private int quantity;
     private int totalPrice;
+    private int idRating;
     private String status = "Insert";
 
     public RentCarDTO() {
@@ -87,6 +88,14 @@ public class RentCarDTO implements Serializable{
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public int getIdRating() {
+        return idRating;
+    }
+
+    public void setIdRating(int idRating) {
+        this.idRating = idRating;
     }
     
     

@@ -4,6 +4,7 @@ WHERE IDRent IN ( SELECT IDRent
 					WHERE DateRent > '02/26/2019' OR DateReturn < '02/21/2019'
 					)
 		AND Status='Paymented'
+					-- mac du available trong CAr = 0, 
 					-- chọn ra ID Car ngoài những ngày trong bảng có ng thuê, status Paymented: means đang có ng thuê
 					
 UNION

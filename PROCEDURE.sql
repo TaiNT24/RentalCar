@@ -41,5 +41,5 @@ CREATE PROCEDURE sp_GetAvailableQuantity @IDCar INT, @DateWantRent VARCHAR(50), 
 	END
 GO
 ------
-EXEC sp_GetAvailableQuantity 2, '02/21/2019', '02/26/2019'
+EXEC sp_GetAvailableQuantity 1, '03/08/2020', '03/20/2020'
 

@@ -1,0 +1,8 @@
+SELECT TOP(1) * FROM (
+SELECT Email,  SUM(TotalPrice) AS a FROM dbo.Cart 
+
+WHERE DateRent BETWEEN '2020-02-15' AND '2020-03-20'
+GROUP BY Email
+)AS t
+
+ORDER BY a DESC

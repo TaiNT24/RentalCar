@@ -46,7 +46,7 @@ public class RegisteraccountAction {
         String url = FAIL;
 
         Date now = new Date();
-        String dateCreate = Utils.formatDateToString(now);
+        String dateCreate = Utils.formatDateToStringDateSQL(now);
         boolean isError = false;
 
         AccountDAO dao = new AccountDAO();

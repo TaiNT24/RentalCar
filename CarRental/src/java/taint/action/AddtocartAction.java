@@ -85,7 +85,6 @@ public class AddtocartAction {
                     DateTimeRentCarDAO dtrcDAO = new DateTimeRentCarDAO();
 
                     dtrcDAO.insertADateRentCar(lastIDRent, dateRent, dateReturn);
-
                     
                 }
             }

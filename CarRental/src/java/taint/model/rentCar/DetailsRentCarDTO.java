@@ -10,6 +10,7 @@ package taint.model.rentCar;
  * @author nguye
  */
 public class DetailsRentCarDTO {
+
     private int idRent;
     private int idCar;
     private int idCart;
@@ -17,10 +18,13 @@ public class DetailsRentCarDTO {
     private int quantity;
     private int totalPrice;
     private String status = "Insert";
-    
+
+    private String dateRentCart;
+    private int totalPriceInCart;
+
     private String carName;
     private String category;
-    
+
     private String dateRent;
     private String dateReturn;
 
@@ -39,8 +43,6 @@ public class DetailsRentCarDTO {
         this.dateRent = dateRent;
         this.dateReturn = dateReturn;
     }
-    
-    
 
     public int getIdRent() {
         return idRent;
@@ -129,6 +131,21 @@ public class DetailsRentCarDTO {
     public void setDateReturn(String dateReturn) {
         this.dateReturn = dateReturn;
     }
-    
-    
+
+    public String getDateRentCart() {
+        return dateRentCart;
+    }
+
+    public void setDateRentCart(String dateRentCart) {
+        this.dateRentCart = dateRentCart;
+    }
+
+    public int getTotalPriceInCart() {
+        return totalPriceInCart;
+    }
+
+    public void setTotalPriceInCart(int totalPriceInCart) {
+        this.totalPriceInCart = totalPriceInCart;
+    }
+
 }

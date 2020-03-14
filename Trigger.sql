@@ -13,18 +13,16 @@ BEGIN
 	IF(@StatusRent = 'Paymented')
 		BEGIN
 			SELECT @QuantityRent = (SELECT SUM(Quantity)
-							FROM dbo.RentCar
-							WHERE Status='Paymented' 
-								AND IDCar = (SELECT IDCar FROM Inserted)
-							)
-
+									FROM dbo.RentCar
+									WHERE Status='Paymented' 
+										AND IDCar = (SELECT IDCar FROM Inserted)
+									)
 			IF(@QuantityRent > 0)
 				BEGIN
 					UPDATE dbo.Car SET AvailableQuantity = Car.Quantity - @QuantityRent
 							WHERE Car.IDCar = (SELECT IDCar FROM Inserted)
-			
+					
 				END
-			
 		END
 END
 GO
@@ -34,7 +32,7 @@ GO
 IF OBJECT_ID('trg_ReturnQuantity', 'TR') IS NOT NULL
 	DROP trigger trg_ReturnQuantity
 GO
-CREATE TRIGGER trg_ReturnQuantity ON dbo.RentCar AFTER UPDATE AS
+CREATE TRIGGER trg_ReturnQuantity ON dbo.RentCar AFTER UPDATE, INSERT AS
 BEGIN
 
 	DECLARE @QuantityReturn INT, @StatusRent VARCHAR(50)
@@ -42,45 +40,40 @@ BEGIN
 	SELECT @StatusRent = (SELECT Status FROM Inserted)
 							
 	
-	IF(@StatusRent = 'Returned')
+	IF(@StatusRent = 'Returned' OR @StatusRent = 'Canceled')
 		BEGIN
 			SELECT @QuantityReturn = (SELECT Inserted.Quantity FROM Inserted)
+			
+			
 
 			IF(@QuantityReturn > 0)
 				BEGIN
 					UPDATE dbo.Car 
-					SET AvailableQuantity = Car.AvailableQuantity + @QuantityReturn
+					SET AvailableQuantity += @QuantityReturn
+					--Car.AvailableQuantity + @QuantityReturn
 					WHERE Car.IDCar = (SELECT IDCar FROM Inserted)
-
 				END
-			
+		END
+	ELSE
+		--Trigger Update Total Price In RentCar
+		BEGIN
+			-- Update total price in a RENT_CART
+			UPDATE dbo.RentCar 
+			SET TotalPrice = (SELECT Quantity*Price FROM dbo.RentCar WHERE IDRent = (SELECT Inserted.IDRent FROM Inserted))
+			WHERE IDRent = (SELECT Inserted.IDRent FROM Inserted)
+	
+			-- Update total price in a CART
+			UPDATE dbo.Cart 
+			SET TotalPrice = (SELECT SUM(TotalPrice) 
+								FROM dbo.RentCar 
+								WHERE IDCart = (SELECT Inserted.IDCart FROM Inserted))
+			WHERE Cart.IDCart = (SELECT Inserted.IDCart FROM Inserted)
 		END
 END
 GO
 ------------------------------------------------------------
 ------------------------------------------------------------
---Trigger Update Total Price In RentCar
 
-IF OBJECT_ID('trg_UpdateTotalPriceInRentCar', 'TR') IS NOT NULL
-	DROP trigger trg_UpdateTotalPriceInRentCar
-GO
-CREATE TRIGGER trg_UpdateTotalPriceInRentCar ON dbo.RentCar AFTER UPDATE,INSERT AS
-BEGIN
-	-- Update total price in a RENT_CART
-	UPDATE dbo.RentCar 
-	SET TotalPrice = (SELECT Inserted.Quantity*Inserted.Price FROM Inserted)
-	WHERE IDRent = (SELECT Inserted.IDRent FROM Inserted)
-	
-	-- Update total price in a CART
-	UPDATE dbo.Cart 
-	SET TotalPrice = (SELECT SUM(TotalPrice) 
-						FROM dbo.RentCar 
-						WHERE IDCart = (SELECT Inserted.IDCart FROM Inserted))
-
-	WHERE Cart.IDCart = (SELECT Inserted.IDCart FROM Inserted)
-
-END
-GO
 ------------------------------------------------------------
 ------------------------------------------------------------
 --Trigger Update Total Price In Car when user delete a car in RentCar

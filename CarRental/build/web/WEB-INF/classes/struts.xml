@@ -15,7 +15,9 @@
         <action name="registerNewAccount" >
             <result type="redirect">RegisterNewAccount.jsp</result>
         </action>
-        
+        <action name="feedback">
+            <result>Feedback.jsp</result>
+        </action>
         
                         
     </package>

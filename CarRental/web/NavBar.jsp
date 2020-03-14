@@ -89,14 +89,10 @@ and open the template in the editor.
                             </button>
 
                             <div class="dropdown-menu" >
-                                <s:url var="history" value="HistoryShopping">
-                                    <s:param name="email" 
-                                             value="%{#session.USER_EMAIL}"/>
-                                </s:url>
                                 <p class="dropdown-item" data-toggle="collapse" 
                                    style="padding: 0.5em;text-align: center"
                                    >
-                                    <a href="${history}">History shopping</a>
+                                    <a href="historyshopping">History shopping</a>
                                 </p>
                                 <p class="dropdown-item" data-toggle="collapse" 
                                    style="padding: 0.5em;text-align: center"

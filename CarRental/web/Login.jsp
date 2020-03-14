@@ -100,7 +100,7 @@
 
             }
             function onFailure(error) {
-                window.alert(error)
+                window.alert("Cancle login with google")
                 console.log();
             }
             function renderButton() {

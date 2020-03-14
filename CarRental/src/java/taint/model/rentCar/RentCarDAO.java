@@ -27,7 +27,7 @@ public class RentCarDAO implements Serializable {
         Connection con = null;
         PreparedStatement stm = null;
 
-        String sqlQuery = "INSERT INTO RentCar values(?,?,?,?,?,?)";
+        String sqlQuery = "INSERT INTO RentCar values(?,?,?,?,?,?,?)";
         try {
             con = DBUtils.connectDB();
             if (con != null) {
@@ -39,6 +39,7 @@ public class RentCarDAO implements Serializable {
                 stm.setInt(4, dto.getQuantity());
                 stm.setString(5, dto.getStatus());
                 stm.setInt(6, dto.getTotalPrice());
+                stm.setInt(7, 0);
 
                 int row = stm.executeUpdate();
                 if (row > 0) {
@@ -64,7 +65,7 @@ public class RentCarDAO implements Serializable {
 
         List<RentCarDTO> listRentCar = new ArrayList<>();
 
-        String sqlQuery = "SELECT IDRent, IDCar, Price, Quantity, TotalPrice "
+        String sqlQuery = "SELECT IDRent, IDCar, Price, Quantity, TotalPrice, Status "
                 + "FROM RentCar "
                 + "WHERE IDCart = ?";
         try {
@@ -82,9 +83,11 @@ public class RentCarDAO implements Serializable {
                     int price = rs.getInt("Price");
                     int quantity = rs.getInt("Quantity");
                     int totalPrice = rs.getInt("TotalPrice");
+                    String status = rs.getString("Status");
 
                     RentCarDTO dto = new RentCarDTO(idCar, idCart, price, quantity, totalPrice);
                     dto.setIdRent(idRent);
+                    dto.setStatus(status);
 
                     listRentCar.add(dto);
                 }
@@ -109,7 +112,7 @@ public class RentCarDAO implements Serializable {
         Statement stm = null;
         ResultSet rs = null;
 
-        String sqlQuery = "SELECT TOP(1) IDRent FROM RentCar ORDER BY  IDRent DESC";
+        String sqlQuery = "SELECT TOP(1) IDRent FROM RentCar ORDER BY IDRent DESC";
         try {
             con = DBUtils.connectDB();
             if (con != null) {
@@ -273,22 +276,24 @@ public class RentCarDAO implements Serializable {
         return false;
     }
     
-    public boolean setPaymentStatus(List<RentCarDTO> listRent) 
+    public boolean setStatusCarRent(List<RentCarDTO> listRent,String status) 
             throws NamingException, SQLException{
         Connection con = null;
         PreparedStatement stm = null;
 
         
-        String sqlQuery = "UPDATE RentCar SET Status = 'Paymented' "
+        String sqlQuery = "UPDATE RentCar SET Status = ? "
                 + " WHERE IDRent = ?";
         try{
             con = DBUtils.connectDB();
             if(con!=null){
                 stm = con.prepareStatement(sqlQuery);
                 for (RentCarDTO dto : listRent) {
-                    stm.setInt(1, dto.getIdRent());
+                    stm.setString(1, status);
+                    stm.setInt(2, dto.getIdRent());
 
                     stm.executeUpdate();
+                    stm.clearParameters();
                 }
                 
             }
@@ -302,6 +307,44 @@ public class RentCarDAO implements Serializable {
         }
         return true;
     }
+    
+    public boolean updateQuantity(int idCart, int idCar, int newQuan)
+            throws NamingException, SQLException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+
+        String sqlQuery = "update RentCar set Quantity = ? "
+                + "where IDCart = ? and IDCar = ?";
+        try {
+            con = DBUtils.connectDB();
+            if (con != null) {
+                stm = con.prepareStatement(sqlQuery);
+
+                stm.setInt(1, newQuan);
+                stm.setInt(2, idCart);
+                stm.setInt(3, idCar);
+
+                int row = stm.executeUpdate();
+                if (row > 0) {
+                    return true;
+                }
+
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return false;
+    }
+    
     
     
 }

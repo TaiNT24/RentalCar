@@ -26,7 +26,7 @@ public class UpdatequantityincartAction {
     private int idCartChange;
     private int idCarChange;
     private int oldQuantity;
-    
+
     private int totalCart;
     private List<DetailsRentCarDTO> listRentCarDetails;
 
@@ -51,30 +51,42 @@ public class UpdatequantityincartAction {
             } else {
                 rentCarDAO.decreQuantity(idCartChange, idCarChange, oldQuantity);
             }
-            
+
             for (DetailsRentCarDTO dto : listRentCarDetails) {
-                if(dto.getIdCar()==idCarChange && dto.getIdCart() == idCartChange){
+                if (dto.getIdCar() == idCarChange && dto.getIdCart() == idCartChange) {
                     int price = dto.getPrice();
-                    if(isIncre){
+                    if (isIncre) {
                         totalCart += price;
-                        dto.setQuantity(oldQuantity+1);
-                        dto.setTotalPrice(dto.getTotalPrice()+price);
-                    }else{
+                        dto.setQuantity(oldQuantity + 1);
+                        dto.setTotalPrice(dto.getTotalPrice() + price);
+                    } else {
                         totalCart -= price;
-                        dto.setQuantity(oldQuantity-1);
-                        dto.setTotalPrice(dto.getTotalPrice()-price);
+                        dto.setQuantity(oldQuantity - 1);
+                        dto.setTotalPrice(dto.getTotalPrice() - price);
                     }
-                    
+
                     break;
                 }
             }
         } else {
 
+            rentCarDAO.updateQuantity(idCartChange, idCarChange, quantityItem);
+
+            for (DetailsRentCarDTO dto : listRentCarDetails) {
+                if (dto.getIdCar() == idCarChange && dto.getIdCart() == idCartChange) {
+                    int price = dto.getPrice();
+                    totalCart += price*quantityItem - dto.getTotalPrice();
+                    dto.setQuantity(quantityItem);
+                    dto.setTotalPrice(price*quantityItem);
+                    
+                    break;
+                }
+            }
         }
 
         session.put("TOTAL_IN_CART", totalCart);
         session.put("LIST_RENT_CAR_IN_CART", listRentCarDetails);
-        
+
         return SUCCESS;
     }
 
@@ -134,5 +146,4 @@ public class UpdatequantityincartAction {
         this.listRentCarDetails = listRentCarDetails;
     }
 
-    
 }

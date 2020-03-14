@@ -41,7 +41,7 @@ public class Utils {
         Utils.code = code;
     }
     
-    public static String formatDateToString(Date date) {
+    public static String formatDateToStringDateSQL(Date date) {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         String dateFormat = df.format(date);
