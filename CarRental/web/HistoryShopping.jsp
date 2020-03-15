@@ -67,8 +67,13 @@
                                                         </tr>
                                                         <tr>
                                                             <td colspan="5" class="text-right">
-                                                                <s:if test="%{status == 'Returned'}">
-                                                                    <a href="feedback?asd=1" target="_blank">
+                                                                <s:url var="feedback" value="feedback">
+                                                                    <s:param name="rentID">
+                                                                        <s:property value="idRent"/>
+                                                                    </s:param>
+                                                                </s:url>
+                                                                <s:if test="%{status == 'Returned' && idFeedback == 0}">
+                                                                    <a href="${feedback}">
                                                                         Feedback
                                                                     </a>
                                                                 </s:if>
@@ -96,13 +101,27 @@
                                                 <s:property value="%{#totalPriceInCart}"/>
                                             </h2>
 
-                                            <!--status-->
+                                            <!--Date rent cart-->
                                             <p class="text-right text-secondary">
                                                 <s:property value="%{#dateRentCart}"/>
                                             </p>
-                                            <p class="text-right badge badge-info">
-                                                <s:property value="%{#statusCar}"/>
-                                            </p>
+
+                                            <!--status-->
+                                            <s:if test="%{#statusCar == 'Paymented'}">
+                                                <p class="text-right badge badge-info">
+                                                    Paymented
+                                                </p>
+                                            </s:if>
+                                            <s:elseif test="%{#statusCar == 'Canceled'}">
+                                                <p class="text-right badge badge-danger">
+                                                    Canceled
+                                                </p>
+                                            </s:elseif>
+                                            <s:else>
+                                                <p class="text-right badge badge-success">
+                                                    Returned
+                                                </p>
+                                            </s:else>
 
                                             <!--Cancel order-->
                                             <s:if test="%{#statusCar == 'Paymented'}">
@@ -116,10 +135,15 @@
                                                     Cancel order
                                                 </a>
                                             </s:if>
-                                            
-                                            <!--Cancel order-->
+
+                                            <!--Re order-->
                                             <s:if test="%{#statusCar == 'Canceled'}">
-                                                <a href="reorder?asd=1"
+                                                <s:url var="reorder" value="reorder">
+                                                    <s:param name="CartID">
+                                                        <s:property value="%{#id}"/>
+                                                    </s:param>
+                                                </s:url>
+                                                <a href="${reorder}"
                                                    class="btn btn-primary">
                                                     Reorder
                                                 </a>

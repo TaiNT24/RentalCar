@@ -20,8 +20,7 @@ public class FeedbackDTO implements Serializable{
     public FeedbackDTO() {
     }
 
-    public FeedbackDTO(int idRating, int scale, String feedback, int idRent) {
-        this.idRating = idRating;
+    public FeedbackDTO(int scale, String feedback, int idRent) {
         this.scale = scale;
         this.feedback = feedback;
         this.idRent = idRent;

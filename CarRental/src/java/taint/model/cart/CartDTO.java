@@ -15,6 +15,7 @@ public class CartDTO implements Serializable{
     private int idCart;
     private String email;
     private int totalPrice = 0;
+    private int idDiscount = 0;
     private String dateRent = null;
 
     public CartDTO() {
@@ -63,6 +64,14 @@ public class CartDTO implements Serializable{
 
     public void setDateRent(String dateRent) {
         this.dateRent = dateRent;
+    }
+
+    public int getIdDiscount() {
+        return idDiscount;
+    }
+
+    public void setIdDiscount(int idDiscount) {
+        this.idDiscount = idDiscount;
     }
     
     

@@ -27,7 +27,7 @@ public class RentCarDAO implements Serializable {
         Connection con = null;
         PreparedStatement stm = null;
 
-        String sqlQuery = "INSERT INTO RentCar values(?,?,?,?,?,?,?)";
+        String sqlQuery = "INSERT INTO RentCar values(?,?,?,?,?,?)";
         try {
             con = DBUtils.connectDB();
             if (con != null) {
@@ -39,7 +39,6 @@ public class RentCarDAO implements Serializable {
                 stm.setInt(4, dto.getQuantity());
                 stm.setString(5, dto.getStatus());
                 stm.setInt(6, dto.getTotalPrice());
-                stm.setInt(7, 0);
 
                 int row = stm.executeUpdate();
                 if (row > 0) {
@@ -167,6 +166,37 @@ public class RentCarDAO implements Serializable {
         return false;
     }
 
+    public boolean deleteAllRentCarFromCart(List<RentCarDTO> listRent)
+            throws NamingException, SQLException {
+
+        Connection con = null;
+        PreparedStatement stm = null;
+
+        String sqlQuery = "delete from RentCar where IDRent = ? ";
+        try {
+            con = DBUtils.connectDB();
+            if (con != null) {
+                stm = con.prepareStatement(sqlQuery);
+
+                for (RentCarDTO dto : listRent) {
+                    stm.setInt(1, dto.getIdRent());
+
+                    stm.executeUpdate();
+                    
+                    stm.clearParameters();
+                }
+            }
+        } finally {
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return true;
+    }
+    
     public int checkCarInCart(int idCart, int idCar) throws NamingException, SQLException {
         Connection con = null;
         PreparedStatement stm = null;
@@ -344,7 +374,6 @@ public class RentCarDAO implements Serializable {
         }
         return false;
     }
-    
     
     
 }

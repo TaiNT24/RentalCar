@@ -27,6 +27,9 @@ public class DetailsRentCarDTO {
 
     private String dateRent;
     private String dateReturn;
+    
+    private int idDiscount;
+    private int idFeedback = 0;
 
     public DetailsRentCarDTO() {
     }
@@ -148,4 +151,21 @@ public class DetailsRentCarDTO {
         this.totalPriceInCart = totalPriceInCart;
     }
 
+    public int getIdDiscount() {
+        return idDiscount;
+    }
+
+    public void setIdDiscount(int idDiscount) {
+        this.idDiscount = idDiscount;
+    }
+
+    public int getIdFeedback() {
+        return idFeedback;
+    }
+
+    public void setIdFeedback(int idFeedback) {
+        this.idFeedback = idFeedback;
+    }
+
+    
 }

@@ -23,42 +23,42 @@ import taint.model.rentCar.RentCarDTO;
  */
 @ResultPath(value = "/")
 @Results({
-    @Result(name = "success", location = "HistoryShopping.jsp"),
-    @Result(name = "fail", location = "123")
+    @Result(name = "success", location = "HistoryShopping.jsp"), //    @Result(name = "fail", location = "123")
 })
 public class CancelorderAction {
-    
+
     private int CartID;
     private List<Integer> listIDCart;
     private Hashtable<Integer, List<DetailsRentCarDTO>> listHistory;
-    
+
     private final String SUCCESS = "success";
-    private final String FAIL = "fail";
-    
-    
+//    private final String FAIL = "fail";
+
     public CancelorderAction() {
     }
-    
+
     public String execute() throws Exception {
         String url = SUCCESS;
-        
+
         RentCarDAO rentCarDAO = new RentCarDAO();
-        
-        List<RentCarDTO> listRent = rentCarDAO.getListRentCarOfUser(CartID);
-        
-        rentCarDAO.setStatusCarRent(listRent, "Canceled");
 
         Map session = ActionContext.getContext().getSession();
-        listIDCart=(List<Integer>) session.get("LIST_ID_CART_HISTORY");
-        listHistory=(Hashtable<Integer, List<DetailsRentCarDTO>>) session.get("LIST_CAR_RENT_HISTORY");
+        listIDCart = (List<Integer>) session.get("LIST_ID_CART_HISTORY");
+        listHistory = (Hashtable<Integer, List<DetailsRentCarDTO>>) session.get("LIST_CAR_RENT_HISTORY");
+
         
-        if(listHistory.containsKey(CartID)){
-            List<DetailsRentCarDTO> listDetail = listHistory.get(CartID);
-            for (DetailsRentCarDTO dto : listDetail) {
-                dto.setStatus("Canceled");
+        List<RentCarDTO> listRent = rentCarDAO.getListRentCarOfUser(CartID);
+        if (listRent.get(0).getStatus().equals("Paymented")) {
+            rentCarDAO.setStatusCarRent(listRent, "Canceled");
+
+            if (listHistory.containsKey(CartID)) {
+                List<DetailsRentCarDTO> listDetail = listHistory.get(CartID);
+                for (DetailsRentCarDTO dto : listDetail) {
+                    dto.setStatus("Canceled");
+                }
             }
         }
-        
+
         return url;
     }
 
@@ -85,6 +85,5 @@ public class CancelorderAction {
     public void setListHistory(Hashtable<Integer, List<DetailsRentCarDTO>> listHistory) {
         this.listHistory = listHistory;
     }
-    
-    
+
 }

@@ -46,11 +46,16 @@ and open the template in the editor.
         </div>
 
         <nav class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top">
+            <s:url var="Home" value="''"/>
+            <s:if test="%{#session.ROLE == 1}">
+                <s:url var="Home" value="admin"/>
+            </s:if>
             <ul class="navbar-nav">
                 <li class="nav-item ">
-                    <a class="navbar-brand" href="''">Home</a>
+                    <a class="navbar-brand" href="${Home}">Home</a>
                 </li>
             </ul>
+
             <ul class="navbar-nav" style="margin-left: 20em">
                 <s:if test="%{#session.USER_EMAIL == null}">
 
@@ -64,21 +69,20 @@ and open the template in the editor.
             </ul>
 
             <!--.-->
-            <ul class="navbar-nav" >
 
-                <!--Not Login yet-->
-                <s:if test="%{#session.USER_EMAIL == null}">
+            <!--Not Login yet-->
+            <s:if test="%{#session.USER_EMAIL == null}">
+                <ul class="navbar-nav" >
                     <li class="nav-item  " 
                         style="text-align: center;margin-left: 20em">
                         <a href="loginPage" class="text-white">Login</a> 
                     </li>
-                </s:if>
-            </ul>
+                </ul>
+            </s:if>
 
-            <ul class="navbar-nav" style="margin-left: 25%">
-                <!--User-->
-                <s:if test="%{#session.ROLE == 0}">
-
+            <!--User-->
+            <s:elseif test="%{#session.ROLE == 0}">
+                <ul class="navbar-nav" style="margin-left: 20%;">
                     <li class="nav-item text-white " 
                         style="text-align: center; width: 15em;"
                         >
@@ -103,14 +107,30 @@ and open the template in the editor.
                         </div>                   
                     </li>
 
-
                     <li class="nav-item" style="margin-left: 1em">
                         <a href="gotocart" class="btn btn-info">
                             Shopping Cart
                         </a>
                     </li>
                 </ul>
-            </s:if>
+            </s:elseif>
+            <s:else>
+                <ul class="navbar-nav" style="margin-left: 35%;">
+                    <li class="nav-item text-white" 
+
+                        >
+                        <a class="btn btn-primary" href="#" >
+                            Welcome: <s:property value="%{#session.USER_NAME}"/>
+                        </a>
+                    </li>
+
+                    <li class="nav-item" style="margin-left: 1em">
+                        <a href="logout" class="btn btn-info"
+                           onclick="signOut();">Logout</a>
+                    </li>
+                </ul>
+            </s:else>
+
 
         </nav>
         <br>

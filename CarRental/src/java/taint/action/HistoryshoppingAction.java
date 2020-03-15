@@ -18,6 +18,7 @@ import taint.model.car.CarDAO;
 import taint.model.cart.CartDAO;
 import taint.model.dateTimeRentCar.DateTimeRentCarDAO;
 import taint.model.dateTimeRentCar.DateTimeRentCarDTO;
+import taint.model.feedback.FeedbackDAO;
 import taint.model.rentCar.DetailsRentCarDTO;
 import taint.model.rentCar.RentCarDAO;
 import taint.model.rentCar.RentCarDTO;
@@ -61,6 +62,7 @@ public class HistoryshoppingAction {
                 CarDAO carDAO = new CarDAO();
                 RentCarDAO rentCarDAO = new RentCarDAO();
                 DateTimeRentCarDAO dtrcDAO = new DateTimeRentCarDAO();
+                FeedbackDAO feedbackDAO = new FeedbackDAO();
 
                 List<RentCarDTO> listRentCar;
                 List<DateTimeRentCarDTO> listDTRC;
@@ -83,6 +85,8 @@ public class HistoryshoppingAction {
                         int totalPrice = listRentCar.get(i).getTotalPrice();
                         String status = listRentCar.get(i).getStatus();
 
+                        int idRating = feedbackDAO.getFeedback(idRent);
+                        
                         StringTokenizer stk1 = new StringTokenizer(listDTRC.get(i).getDateRent(), " ");
                         StringTokenizer stk2 = new StringTokenizer(listDTRC.get(i).getDateReturn(), " ");
 
@@ -97,7 +101,11 @@ public class HistoryshoppingAction {
                         dto.setDateRentCart(dateRentCart);
                         dto.setTotalPriceInCart(totalPriceInCart);
                         dto.setStatus(status);
-
+                        if(idRating>0){
+                            dto.setIdFeedback(idRating);
+                        }
+                        
+                        
                         listRentCarDetails.add(dto);
 
                     }

@@ -17,7 +17,6 @@
             <jsp:include page="NavBar.jsp"/>
 
             <h2>Your cart:</h2>
-            
 
             <s:if test="%{listRentCarDetails.size()==0}">
                 <h3 class="text-secondary" style="margin-left: 5em;">
@@ -115,8 +114,7 @@
                                                             <s:param name="idRentInRentCar">
                                                                 <s:property value="%{idRent}"/>
                                                             </s:param>
-                                                            <!--                                                            <c:param name="userID" 
-                                                                                                                                 value="${sessionScope.USER_ID}"/>-->
+
                                                         </s:url>
                                                         <a href="${delete}" class="btn btn-danger" >
                                                             Yes
@@ -140,11 +138,8 @@
 
                                 </form>
                             </div>
-                            <%--<s:url var="paymentByCast" value="checkquantity">--%>
-                            <%--<s:param name="idCartNeedCheck"--%> 
-                            <!--value="idCart"/>-->
-                            <%--</s:url>--%>
-                            <s:set name="idCartNeedCheck" value="idCart"/>
+                           
+                                    <s:set name="idCartNeedCheck" value="idCart" />
                         </s:iterator>
 
                     </div>
@@ -184,17 +179,14 @@
 
                             <div style="margin-top: 2em;">
                                 <form action="checkquantity" method="POST">
-<!--                                    <a href="${paymentByCast}" 
-                                       class="btn btn-success btn-lg btn-block">
-                                        Payment
-                                    </a>-->
+
                                     <input type="hidden" name="idCartNeedCheck" 
                                            value="${idCartNeedCheck}"/>
                                     <input type="hidden" name="totalPriceAfterUseVoucher"
                                            id="totalPriceAfterUseVoucher"/>
                                     <input type="hidden" name="CodeDiscountValue"
                                            id="CodeDiscountValue"/>
-                                    
+
                                     <button class="btn btn-success btn-lg btn-block">
                                         Payment
                                     </button>
@@ -210,6 +202,8 @@
         </div>
 
         <script>
+            console.log(document.getElementById("totalPriceAfterUseVoucher").value);
+            
             function loadDiscount() {
                 var voucher = document.getElementById('codeDiscount').value;
 
@@ -221,12 +215,12 @@
 
                         if (msg[0] === 'Apply voucher successful !') {
                             document.getElementById("CodeDiscountValue").value = voucher;
-                            
+
                             document.getElementById("msgForDiscountSucc").innerHTML =
                                     msg[0];
                             document.getElementById("msgForDiscountFail").innerHTML =
                                     "";
-                            
+
                             var originPrice = <s:property value="%{totalCart}"/>;
                             var newPrice = Math.ceil(originPrice * (100 - msg[1]) / 100);
 

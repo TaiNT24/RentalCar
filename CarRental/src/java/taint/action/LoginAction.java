@@ -22,7 +22,13 @@ import taint.model.account.AccountDAO;
 @Results({
     @Result(name = "user", type = "redirectAction",
             params = {
-                "actionName", "",})
+                "actionName", ""
+            })
+    ,
+    @Result(name = "admin", type = "redirectAction",
+            params = {
+                "actionName", "admin"
+            })
     ,
     @Result(name = "fail", location = "Login.jsp")
 })
@@ -32,6 +38,7 @@ public class LoginAction {
     private String txtPassword;
 
     private final String USER = "user";
+    private final String ADMIN = "admin";
     private final String FAIL = "fail";
 
     public LoginAction() {
@@ -45,19 +52,23 @@ public class LoginAction {
 
             int role = dao.checkLogin(txtEmail, txtPassword);
             if (role != -1) {
+                Map session = ActionContext.getContext().getSession();
+                
                 String name = dao.getUserName(txtEmail);
                 if (role == 0) {
-                    Map session = ActionContext.getContext().getSession();
-
                     session.put("ROLE", 0);
-                    session.put("USER_EMAIL", txtEmail);
-                    session.put("USER_NAME", name);
 
                     url = USER;
+                } else if (role == 1) {
+                    session.put("ROLE", 1);
+
+                    url = ADMIN;
                 }
+                session.put("USER_EMAIL", txtEmail);
+                session.put("USER_NAME", name);
             } else {
                 HttpServletRequest request = ServletActionContext.getRequest();
-                
+
                 request.setAttribute("ERROR_LOGIN", "true");
             }
         }

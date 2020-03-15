@@ -66,30 +66,31 @@ public class CheckquantityAction {
                 errorVoucher = "This voucher had been used";
                 url = FAIL;
             }
-        } else {
-            Hashtable<Integer, Integer> listRentCarOutOfStock = new Hashtable<>();
+        }
 
-            CarDAO dao = new CarDAO();
+        Hashtable<Integer, Integer> listRentCarOutOfStock = new Hashtable<>();
 
-            for (DetailsRentCarDTO dto : listRentCarDetails) {
-                String dateRent = dto.getDateRent();
-                String dateReturn = dto.getDateReturn();
-                int idCar = dto.getIdCar();
+        CarDAO dao = new CarDAO();
 
-                int quantityWantRent = dto.getQuantity();
+        for (DetailsRentCarDTO dto : listRentCarDetails) {
+            String dateRent = dto.getDateRent();
+            String dateReturn = dto.getDateReturn();
+            int idCar = dto.getIdCar();
 
-                int quantityInStock = dao.getAvailableQuantity(idCar, dateRent, dateReturn);
-                if (quantityWantRent > quantityInStock) {
-                    listRentCarOutOfStock.put(dto.getIdRent(), quantityInStock);
-                }
+            int quantityWantRent = dto.getQuantity();
 
+            int quantityInStock = dao.getAvailableQuantity(idCar, dateRent, dateReturn);
+                        
+            if (quantityWantRent > quantityInStock) {
+                listRentCarOutOfStock.put(dto.getIdRent(), quantityInStock);
             }
-            if (!listRentCarOutOfStock.isEmpty()) {
-                url = FAIL;
-                HttpServletRequest request = ServletActionContext.getRequest();
-                request.removeAttribute("ListOut");
-                request.setAttribute("ListOut", listRentCarOutOfStock);
-            }
+
+        }
+        if (!listRentCarOutOfStock.isEmpty()) {
+            url = FAIL;
+            HttpServletRequest request = ServletActionContext.getRequest();
+            request.removeAttribute("ListOut");
+            request.setAttribute("ListOut", listRentCarOutOfStock);
         }
 
         return url;

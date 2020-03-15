@@ -129,7 +129,36 @@ public class DateTimeRentCarDAO implements Serializable {
         return false;
     }
 
-    
+    public boolean deleteAllDateRentCarOfCart(List<RentCarDTO> listRent)
+            throws SQLException, NamingException {
+        Connection con = null;
+        PreparedStatement stm = null;
+
+        String sqlQuery = "delete from DateTimeRentCar where IDRent = ?";
+        try {
+            con = DBUtils.connectDB();
+            if (con != null) {
+                stm = con.prepareStatement(sqlQuery);
+
+                for (RentCarDTO dto : listRent) {
+                    stm.setInt(1, dto.getIdRent());
+
+                    stm.executeUpdate();
+
+                    stm.clearParameters();
+                }
+                
+            }
+        } finally {
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return true;
+    }
     
     
 }
