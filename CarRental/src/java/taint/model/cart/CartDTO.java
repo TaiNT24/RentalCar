@@ -17,7 +17,7 @@ public class CartDTO implements Serializable{
     private int totalPrice = 0;
     private int idDiscount = 0;
     private String dateRent = null;
-
+    
     public CartDTO() {
     }
 

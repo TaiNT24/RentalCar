@@ -5,12 +5,9 @@
  */
 package taint.action;
 
-import java.sql.SQLException;
 import java.util.Date;
 import java.util.StringTokenizer;
-import javax.naming.NamingException;
 import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Result;

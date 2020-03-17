@@ -17,7 +17,6 @@ import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.ResultPath;
 import org.apache.struts2.convention.annotation.Results;
 import taint.model.car.CarDAO;
-import taint.model.car.CarDTO;
 import taint.model.cart.CartDAO;
 import taint.model.cart.CartDTO;
 import taint.model.category.CategoryDAO;
@@ -72,6 +71,8 @@ public class AdminAction {
             List<DateTimeRentCarDTO> listDTRC;
             
             for (CartDTO cartDTO : listCart) {
+                
+                
                 //get list rent car in cart
                 listRentCar = rentCartDAO.getListRentCarOfUser(cartDTO.getIdCart());
 
@@ -114,8 +115,11 @@ public class AdminAction {
                 // -> Add to hash table
                 listDetailDTO.put(cartDTO.getIdCart(), listRentCarDetails);
 
-                
             }
+            
+            session.put("LIST_CART", listCart);
+            session.put("LIST_DETAIL_DTO", listDetailDTO);
+            
 
             List<CategoryDTO> listCategory = categoryDAO.loadCategory();
 

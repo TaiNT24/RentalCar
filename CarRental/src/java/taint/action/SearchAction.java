@@ -23,7 +23,7 @@ import taint.model.car.CarDTO;
 @Results({
     @Result(name = "success", location = "ResultSearch.jsp")
     ,
-    @Result(name = "fail", type = "redirect", location = "Home.jsp")
+    @Result(name = "fail", location = "ResultSearch.jsp")
 
 })
 public class SearchAction {
@@ -64,7 +64,7 @@ public class SearchAction {
         if (!tempListCars.isEmpty()) {
             for (CarDTO car : tempListCars) {
                 int availableQuan = car.getAvailableQuantity();
-                int fromAmout = amount - 5;
+                int fromAmout = 1;
                 int toAmout = amount + 5;
 
                 if (availableQuan >= fromAmout && availableQuan <= toAmout) {

@@ -30,7 +30,7 @@ public class DetailsRentCarDTO {
     
     private int idDiscount;
     private int idFeedback = 0;
-
+    
     public DetailsRentCarDTO() {
     }
 

@@ -12,7 +12,6 @@ import java.util.Map;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.ResultPath;
 import org.apache.struts2.convention.annotation.Results;
-import taint.model.cart.CartDAO;
 import taint.model.rentCar.DetailsRentCarDTO;
 import taint.model.rentCar.RentCarDAO;
 import taint.model.rentCar.RentCarDTO;
